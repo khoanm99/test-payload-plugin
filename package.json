@@ -1,73 +1,56 @@
 {
   "name": "test-form-label-plugin",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Form label plugin",
+  "license": "MIT",
   "author": "khoanm99",
-  "license": "ISC",
-  "files": [
-    "dist",
-    "LICENSE.md",
-    "README.md"
+  "maintainers": [
+    {
+      "name": "khoanm99",
+      "email": "khoa@vietswiss.com"
+    }
   ],
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "build:all": "pnpm build && pnpm -C dev build",
-    "build:app": "pnpm -C dev build",
-    "clean": "rimraf {dist,*.tsbuildinfo,package}",
-    "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
-    "dev": "pnpm -C dev dev",
+    "build": "pnpm build:types && pnpm build:swc",
+    "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "clean": "rimraf {dist,*.tsbuildinfo}",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepack": "pnpm prepublishOnly",
-    "prepublishOnly": "pnpm clean && pnpm build && pnpm copyfiles"
+    "test": "echo \"No tests available.\""
   },
-  "peerDependencies": {
-    "next": "15.0.0-canary.173",
-    "payload": "^3.0.0-beta.111"
-  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "@payloadcms/ui": "3.0.0-beta.111",
-    "react": "19.0.0-rc-3edc000d-20240926",
-    "react-dom": "19.0.0-rc-3edc000d-20240926"
+    "escape-html": "^1.0.3",
+    "@payloadcms/ui": "3.8.0"
   },
   "devDependencies": {
-    "@payloadcms/eslint-config": "3.0.0-beta.97",
-    "@types/node": "22.7.5",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/escape-html": "^1.0.4",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.1",
     "copyfiles": "^2.4.1",
-    "next": "15.0.0-canary.173",
-    "payload": "3.0.0-beta.111",
-    "react": "19.0.0-rc-3edc000d-20240926",
-    "react-dom": "19.0.0-rc-3edc000d-20240926",
-    "typescript": "5.5.3"
+    "cross-env": "^7.0.3",
+    "@payloadcms/eslint-config": "3.0.0",
+    "payload": "3.8.0"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
+  "peerDependencies": {
+    "react": "^19.0.0 || ^19.0.0-rc-65a56d0e-20241020",
+    "react-dom": "^19.0.0 || ^19.0.0-rc-65a56d0e-20241020",
+    "payload": "3.8.0"
   },
   "publishConfig": {
-    "main": "./dist/index.js",
-    "registry": "https://registry.npmjs.org/",
-    "types": "./dist/index.d.ts",
-    "exports": {
-      ".": {
-        "import": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    }
+    "registry": "https://registry.npmjs.org/"
   },
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "default": "./src/index.ts",
-      "types": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "repository": {
@@ -76,10 +59,17 @@
   },
   "keywords": [
     "payload",
-    "plugin"
+    "cms",
+    "plugin",
+    "typescript",
+    "react",
+    "forms",
+    "fields",
+    "form builder",
+    "payments"
   ],
   "bugs": {
     "url": "https://github.com/khoanm99/test-plugin/issues"
   },
-  "homepage": "https://github.com/khoanm99/test-plugin#readme"
+  "homepage:": "https://payloadcms.com"
 }
